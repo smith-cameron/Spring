@@ -15,7 +15,7 @@
 		<p class="subHead">Houston... we have problem.</p>
 		<div id="regDiv">
 			<h2 class="subHead">Add Expense</h2>
-			<form:form action="/create" method="post" modelAttribute="newExpense">
+			<form:form action="/expenses" method="post" modelAttribute="newExpense">
 				<form:errors class="validations" path="expenseName"/>
 				<div class="formGroup">
 					<form:label path="expenseName">Expense Name:</form:label>

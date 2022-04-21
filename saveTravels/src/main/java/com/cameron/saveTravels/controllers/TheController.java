@@ -30,14 +30,14 @@ public class TheController {
 		model.addAttribute("expenses", this.eService.getAll());
 		return "index.jsp";
 	}
-	@PostMapping("/create")
+	@PostMapping("/expenses")
 	public String createExpense(@Valid @ModelAttribute("newExpense")Expense expenseInput, BindingResult result, Model viewModel) {
 		if (result.hasErrors()) {
 			viewModel.addAttribute("expenses", this.eService.getAll());
 			return "index.jsp";
 		}
 		this.eService.create(expenseInput);
-		return "redirect:/";
+		return "redirect:/expenses";
 	}
 	@GetMapping("/expenses/edit/{id}")
 	public String editRender(@PathVariable("id")Long expenseId, Model model) {
