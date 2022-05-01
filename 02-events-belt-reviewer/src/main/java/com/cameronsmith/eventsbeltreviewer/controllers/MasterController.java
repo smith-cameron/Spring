@@ -40,7 +40,7 @@ public class MasterController {
 	@GetMapping("/")
 	public String loginAndReg(@ModelAttribute("user")User user, Model viewModel) {
 		viewModel.addAttribute("theStates", stateList);
-		System.out.println(stateList);
+//		System.out.println(stateList);
 		return "index.jsp";
 	}
 	
@@ -52,6 +52,7 @@ public class MasterController {
 		}
 		User newUser = this.uService.registerUser(user);
 		session.setAttribute("user_id", newUser.getId());
+//		System.out.println(newUser.getId());
 		return "redirect:/events";
 	}
 	
@@ -63,6 +64,7 @@ public class MasterController {
 		}
 		User user = this.uService.getByEmail(email);
 		session.setAttribute("user_id", user.getId());
+//		System.out.println(user.getId());
 		return "redirect:/events";
 	}
 	
@@ -70,6 +72,7 @@ public class MasterController {
 	public String allEvents(HttpSession session, Model viewModel) {
 		Event newEvent = new Event();
 		Long userId = (Long)session.getAttribute("user_id");
+//		System.out.println(userId);
 		if(userId == null) {
 			return "redirect:/";
 		}
@@ -77,7 +80,7 @@ public class MasterController {
 		String currentState = currentUser.getState();
 		viewModel.addAttribute("currentUser", currentUser);
 		viewModel.addAttribute("theStates", stateList);
-		viewModel.addAttribute("event", newEvent);
+		viewModel.addAttribute("newEvent", newEvent);
 		viewModel.addAttribute("inStateEvents", this.eService.getEventsByUserState(currentState));
 		viewModel.addAttribute("otherStateEvents", this.eService.getOtherEventsByUserState(currentState));
 		return "displayAll.jsp";
@@ -94,6 +97,7 @@ public class MasterController {
 		viewModel.addAttribute("inStateEvents", inStateEvents);
 		viewModel.addAttribute("otherStateEvents", otherStateEvents);
 		if (result.hasErrors()) {
+			viewModel.addAttribute("theStates", stateList);
 			return "displayAll.jsp";
 		}
 		this.eService.createEntry(eventInput);

@@ -96,7 +96,7 @@
 		</div>
 		<div id="eventForm">
 			<h2 class="subHead">Create An Event</h2>
-			<form:form id="inputForm" action="/events/new" method="POST" modelAttribute="event">
+			<form:form id="inputForm" action="/events/new" method="POST" modelAttribute="newEvent">
 		        <form:hidden value="${currentUser.id}" path="host"/>
 		        <form:errors class="validation" path="eventName"/>
 			<div class="formGroup">

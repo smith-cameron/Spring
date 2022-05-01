@@ -53,8 +53,8 @@ public class EventService {
 		this.eRepo.save(event);
 	}
 	public void unJoinEvent(Event event, User user) {
-		List<User> usersAttending = event.getUsersAttending();
-		usersAttending.remove(user);
+		List<User> cookies = event.getUsersAttending();
+		cookies.remove(user);
 		this.eRepo.save(event);
 	}
 	public List<Message> getMessages(){
