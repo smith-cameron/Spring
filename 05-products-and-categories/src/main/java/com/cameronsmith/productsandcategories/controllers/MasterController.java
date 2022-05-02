@@ -22,6 +22,7 @@ import com.cameronsmith.productsandcategories.services.MasterService;
 public class MasterController {
 	@Autowired
 	private MasterService mService;
+	
 	@GetMapping("/")
 	public String index() {
 		return "index.jsp";
