@@ -1,6 +1,8 @@
 package com.codingdojo.mvc1.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +29,15 @@ public class BookService {
     public Book createBook(Book b) {
         return bookRepository.save(b);
     }
-    // retrieves a book/OLD WAY
-//    public Book findBookByIdOLD(Long id) {
-//        Optional<Book> optionalBook = bookRepository.findById(id);
-//        if(optionalBook.isPresent()) {
-//            return optionalBook.get();
-//        } else {
-//            return null;
-//        }
-//    }
+//     retrieves a book/OLD WAY
+    public Book findBookByIdOLD(Long id) {
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if(optionalBook.isPresent()) {
+            return optionalBook.get();
+        } else {
+            return null;
+        }
+    }
     // retrieves a book/NEW WAY
     public Book getByIdNEW(Long id) {
 		return this.bookRepository.findById(id).orElse(null);
