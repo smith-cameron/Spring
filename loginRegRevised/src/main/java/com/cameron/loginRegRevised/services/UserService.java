@@ -43,6 +43,9 @@ public class UserService {
     
     public User login(LoginUser loginUser, BindingResult result) {
     	Optional<User> potentialUser = uRepo.findByEmail(loginUser.getEmail());
+    	if(!potentialUser.isPresent()) {
+			result.rejectValue("email","GENERAL_ERROR", "Email Not Registered, Please Register.");
+		}
         User user = potentialUser.get();
 		if(!BCrypt.checkpw(loginUser.getPassword(), user.getPassword())) {
 		    result.rejectValue("password", "Matches", "Invalid Password!");

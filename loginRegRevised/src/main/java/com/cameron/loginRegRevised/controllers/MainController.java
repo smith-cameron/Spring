@@ -26,12 +26,12 @@ public class MainController {
 	}
 	@PostMapping("/register")
     public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model, HttpSession session) {
-        System.out.println(newUser.getPassword());
-		User user = this.uService.register(newUser, result);
         if(result.hasErrors()) {
             model.addAttribute("newLogin", new LoginUser());
             return "index.jsp";
         }
+//        System.out.println(newUser.getPassword());
+        User user = this.uService.register(newUser, result);
 //        System.out.println(user.getId());
         session.setAttribute("uId", user.getId());
         return "redirect:/home";
@@ -39,11 +39,11 @@ public class MainController {
     
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model, HttpSession session) {
-    	User user = this.uService.login(newLogin, result);
         if(result.hasErrors()) {
             model.addAttribute("newUser", new User());
             return "index.jsp";
         }
+        User user = this.uService.login(newLogin, result);
 //        System.out.println(user.getId());
         session.setAttribute("uId", user.getId());
         return "redirect:/home";
