@@ -25,43 +25,49 @@ public class MainController {
 	private DojoService dService;
 	@Autowired
 	private NinjaService nService;
-	
+
 	@GetMapping("/")
 	public String index() {
-		return "index.jsp";		
+		return "index.jsp";
 	}
+
 	@PostMapping("/")
-	public String dojoInfo(@RequestParam("id")Long id) {
+	public String dojoInfo(@RequestParam("id") Long id) {
 		System.out.println(id);
-		return "redirect:/dojo/"+id;
+		return "redirect:/dojo/" + id;
 	}
+
 	@GetMapping("/dojo/{id}")
-	public String showInfo(@PathVariable("id")Long id, Model viewModel) {
+	public String showInfo(@PathVariable("id") Long id, Model viewModel) {
 		Dojo thisDojo = dService.getById(id);
 		viewModel.addAttribute("dojo", dService.getById(id));
 		viewModel.addAttribute("ninjas", thisDojo.getNinjas());
 		return "dojoInfo.jsp";
 	}
+
 	@GetMapping("/dojo/new")
-	public String newDojo(@ModelAttribute("dojo")Dojo dojo, BindingResult result) {
+	public String newDojo(@ModelAttribute("dojo") Dojo dojo, BindingResult result) {
 		return "newDojo.jsp";
 	}
+
 	@PostMapping("/dojo/new")
-	public String createDojo(@Valid @ModelAttribute("dojo")Dojo dojo, BindingResult result) {
+	public String createDojo(@Valid @ModelAttribute("dojo") Dojo dojo, BindingResult result) {
 		if (result.hasErrors()) {
 			return "newDojo.jsp";
 		}
 		this.dService.createEntry(dojo);
 		return "redirect:/dojo/new";
 	}
+
 	@GetMapping("/ninja/new")
-	public String newNinja(@ModelAttribute("ninja")Ninja ninja, BindingResult result, Model viewModel) {
+	public String newNinja(@ModelAttribute("ninja") Ninja ninja, BindingResult result, Model viewModel) {
 		List<Dojo> allDojo = dService.getAll();
 		viewModel.addAttribute("allDojos", allDojo);
 		return "newNinja.jsp";
 	}
+
 	@PostMapping("/ninja/new")
-	public String createNinja(@Valid @ModelAttribute("ninja")Ninja ninja, BindingResult result) {
+	public String createNinja(@Valid @ModelAttribute("ninja") Ninja ninja, BindingResult result) {
 		if (result.hasErrors()) {
 			return "newNinja.jsp";
 		}
