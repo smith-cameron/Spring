@@ -14,19 +14,18 @@ import com.cameron.waterBnB.services.UserService;
 public class MainController {
 	@Autowired
 	private UserService uService;
-	
-	
-	
+
 	@GetMapping("/")
 	public String index(HttpSession session, Model viewModel) {
 		session.setAttribute("user_id", 0);
-		int userId = (int)session.getAttribute("user_id");
+		int userId = (int) session.getAttribute("user_id");
 		viewModel.addAttribute("currentUserId", userId);
 		return "search.jsp";
 	}
+
 	@GetMapping("/dash")
 	public String dashboard(HttpSession session, Model viewModel) {
-		User currentUser = this.uService.getById((Long)session.getAttribute("user_id"));
+		User currentUser = this.uService.getById((Long) session.getAttribute("user_id"));
 		viewModel.addAttribute("user", currentUser);
 		return "dash.jsp";
 	}

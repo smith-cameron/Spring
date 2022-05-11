@@ -23,19 +23,19 @@ public class LoginRegController {
 	private UserService uService;
 	@Autowired
 	private UserValidator validator;
-	
+
 	@GetMapping("/login")
 	public String login() {
 		return "login.jsp";
 	}
-	
+
 	@GetMapping("/register")
-	public String reg(@ModelAttribute("user")User user, Model viewModel) {
+	public String reg(@ModelAttribute("user") User user, Model viewModel) {
 		return "reg.jsp";
-	} 
-	
+	}
+
 	@PostMapping("/registering")
-	public String registerUser(@Valid @ModelAttribute("user")User user, BindingResult result, HttpSession session) {
+	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
 		validator.validate(user, result);
 		if (result.hasErrors()) {
 			return "reg.jsp";
@@ -43,10 +43,11 @@ public class LoginRegController {
 		this.uService.registerUser(user);
 		return "redirect:/login";
 	}
-	
+
 	@PostMapping("/logging")
-	public String loginUser(@RequestParam("loginEmail")String email, @RequestParam("loginPassword")String password, RedirectAttributes redirectAttrs, HttpSession session) {
-		if(!this.uService.authenticateUser(email, password)) {
+	public String loginUser(@RequestParam("loginEmail") String email, @RequestParam("loginPassword") String password,
+			RedirectAttributes redirectAttrs, HttpSession session) {
+		if (!this.uService.authenticateUser(email, password)) {
 			redirectAttrs.addFlashAttribute("loginError", "Invalid Credantials");
 			return "redirect:/login";
 		}
@@ -54,6 +55,7 @@ public class LoginRegController {
 		session.setAttribute("user_id", user.getId());
 		return "redirect:/dash";
 	}
+
 	@GetMapping("/logOutUser")
 	public String logOut(HttpSession session) {
 		session.invalidate();
