@@ -17,45 +17,50 @@ import com.cameron.loginRegRevised.services.UserService;
 
 @Controller
 public class MainController {
-	@Autowired 
+	@Autowired
 	private UserService uService;
-	
-	@GetMapping("/")										
-	public String Index(@ModelAttribute("newUser")User regUser,@ModelAttribute("newLogin")LoginUser loginUser){											
-		return "index.jsp";									
+
+	@GetMapping("/")
+	public String Index(@ModelAttribute("newUser") User regUser, @ModelAttribute("newLogin") LoginUser loginUser) {
+		return "index.jsp";
 	}
+
 	@PostMapping("/register")
-    public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model, HttpSession session) {
-        if(result.hasErrors()) {
-            model.addAttribute("newLogin", new LoginUser());
-            return "index.jsp";
-        }
+	public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model,
+			HttpSession session) {
+		if (result.hasErrors()) {
+			model.addAttribute("newLogin", new LoginUser());
+			return "index.jsp";
+		}
 //        System.out.println(newUser.getPassword());
-        User user = this.uService.register(newUser, result);
 //        System.out.println(user.getId());
-        session.setAttribute("uId", user.getId());
-        return "redirect:/home";
-    }
-    
-    @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model, HttpSession session) {
-        if(result.hasErrors()) {
-            model.addAttribute("newUser", new User());
-            return "index.jsp";
-        }
-        User user = this.uService.login(newLogin, result);
+		User user = this.uService.register(newUser, result);
+		session.setAttribute("uId", user.getId());
+		return "redirect:/home";
+	}
+
+	@PostMapping("/login")
+	public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model,
+			HttpSession session) {
+		User user = this.uService.login(newLogin, result);
+		if (result.hasErrors()) {
+			model.addAttribute("newUser", new User());
+			return "index.jsp";
+		}
 //        System.out.println(user.getId());
-        session.setAttribute("uId", user.getId());
-        return "redirect:/home";
-    }
-    @GetMapping("/home")
-    public String dashboard(HttpSession session, Model viewModel) {
-    	viewModel.addAttribute("currentUser", this.uService.getById((Long) session.getAttribute("uId")));
-    	return "dash.jsp";
-    }
-    @GetMapping("/logout")
+		session.setAttribute("uId", user.getId());
+		return "redirect:/home";
+	}
+
+	@GetMapping("/home")
+	public String dashboard(HttpSession session, Model viewModel) {
+		viewModel.addAttribute("currentUser", this.uService.getById((Long) session.getAttribute("uId")));
+		return "dash.jsp";
+	}
+
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-			session.invalidate();
-			return "redirect:/";
+		session.invalidate();
+		return "redirect:/";
 	}
 }
