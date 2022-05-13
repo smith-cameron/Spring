@@ -2,19 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>INDEX</title>
+<title>EDIT</title>
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<div id=wrapper>
-		<h1 id="head">Hello World</h1>
-		<p class="subHead">Houston... we have problem.</p>
-		<div id="regDiv">
-			<a class="link" href="/">Go Back</a>
+		<h1 id="head">SAVE TRAVELS</h1>
+		<a class="navLink" href="/">Go Back</a>
+		<div id="editDiv">
 			<h2 class="subHead">Edit Expense</h2>
 			<form:form action="/edit" method="put" modelAttribute="editExpense">
 				<form:hidden value="${editExpense.id}" path="id"/>
