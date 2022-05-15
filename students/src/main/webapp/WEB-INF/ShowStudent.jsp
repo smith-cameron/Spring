@@ -53,6 +53,7 @@
 		<div class="formGroup">
 			<form id="inputForm" action="/dorms/${student.id}/add" method="post">
 				<select class="formInput" name="dorm">
+	     				<option selected disabled>Choose a Dorm</option>
 	     		<c:forEach items="${dorms}" var="dorm">
 	     		<c:choose>
 	     		<c:when test="${student.dorm.id != dorm.id }">
