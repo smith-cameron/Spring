@@ -23,17 +23,17 @@ public class Main {
 	private UserService uService;
 	@Autowired
 	private UserValidator validator;
-	
-	@GetMapping("/")										
-	public String Index(@ModelAttribute("user")User thisUser){											
-		return "index.jsp";								
-		}
-	
+
+	@GetMapping("/")
+	public String Index(@ModelAttribute("user") User thisUser) {
+		return "index.jsp";
+	}
+
 	@PostMapping("/register")
-	public String registerUser(@Valid @ModelAttribute("user")User user, BindingResult result, HttpSession session) {
+	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
 		validator.validate(user, result);
-		System.out.println("Pass: "+user.getPassword());
-		System.out.println("ConfPass: "+user.getConfirmPassword());
+		System.out.println("Pass: " + user.getPassword());
+		System.out.println("ConfPass: " + user.getConfirmPassword());
 		if (result.hasErrors()) {
 			return "index.jsp";
 		}
@@ -41,9 +41,11 @@ public class Main {
 		session.setAttribute("user_id", newUser.getId());
 		return "redirect:/landing";
 	}
+
 	@PostMapping("/login")
-	public String loginUser(@RequestParam("loginEmail")String email, @RequestParam("loginPassword")String password, RedirectAttributes redirectAttrs, HttpSession session) {
-		if(!this.uService.authenticateUser(email, password)) {
+	public String loginUser(@RequestParam("loginEmail") String email, @RequestParam("loginPassword") String password,
+			RedirectAttributes redirectAttrs, HttpSession session) {
+		if (!this.uService.authenticateUser(email, password)) {
 			redirectAttrs.addFlashAttribute("loginError", "Email or Password Invalid");
 			return "redirect:/";
 		}
@@ -51,20 +53,22 @@ public class Main {
 		session.setAttribute("user_id", user.getId());
 		return "redirect:/landing";
 	}
+
 	@GetMapping("/landing")
 	public String landingPage(HttpSession session, Model viewModel) {
-		Long userId = (Long)session.getAttribute("user_id");
-		if(userId != null) {
+		Long userId = (Long) session.getAttribute("user_id");
+		if (userId != null) {
 			User currentUser = this.uService.getById(userId);
 			viewModel.addAttribute("currentUser", currentUser);
 			return "landing.jsp";
 		}
 		return "redirect:/";
-		
+
 	}
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-			session.invalidate();
-			return "redirect:/";
+		session.invalidate();
+		return "redirect:/";
 	}
 }
