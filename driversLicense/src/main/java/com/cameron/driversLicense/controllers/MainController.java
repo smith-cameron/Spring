@@ -23,20 +23,23 @@ public class MainController {
 	public PersonService pService;
 	@Autowired
 	public LicenseService lService;
-	
+
 	@GetMapping("/")
-	public String index(@ModelAttribute("person")Person newPerson, @ModelAttribute("license")License newLicense, Model viewModel) {
+	public String index(@ModelAttribute("person") Person newPerson, @ModelAttribute("license") License newLicense,
+			Model viewModel) {
 		List<Person> allPeople = this.pService.getAll();
 		viewModel.addAttribute("allPeople", allPeople);
 		return "index.jsp";
 	}
+
 	@PostMapping("/person")
-	public String createPerson(@Valid @ModelAttribute("person")Person newPerson, BindingResult results) {
+	public String createPerson(@Valid @ModelAttribute("person") Person newPerson, BindingResult results) {
 		this.pService.createEntry(newPerson);
-		return"redirect:/";
+		return "redirect:/";
 	}
+
 	@PostMapping("/license")
-	public String createLicense(@Valid @ModelAttribute("license")License newLicense, BindingResult results) {
+	public String createLicense(@Valid @ModelAttribute("license") License newLicense, BindingResult results) {
 		License thisLicense = this.lService.createLicense(newLicense);
 		Person licensedPerson = thisLicense.getPerson();
 		thisLicense.setLicenseNumber(this.lService.createLicenseNumber(licensedPerson.getId()));

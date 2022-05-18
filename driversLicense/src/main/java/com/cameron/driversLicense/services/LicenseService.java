@@ -12,40 +12,41 @@ import com.cameron.driversLicense.repositories.LicenseRepo;
 public class LicenseService {
 	@Autowired
 	private LicenseRepo lRepo;
-	
-	public List<License> getAll(){
+
+	public List<License> getAll() {
 		return this.lRepo.findAll();
 	}
-	public License createLicense(License newEntry) { 
+
+	public License createLicense(License newEntry) {
 		return this.lRepo.save(newEntry);
 	}
+
 	public License getById(Long id) {
 		return this.lRepo.findById(id).orElse(null);
 	}
+
 	public License updateEntry(License toUpdate) {
 		return this.lRepo.save(toUpdate);
 	}
+
 	public void deleteById(Long id) {
 		this.lRepo.deleteById(id);
 	}
+
 	public String createLicenseNumber(Long personID) {
-		if (personID < 10){
-			System.out.println("00000"+personID);
-			return "00000"+personID;
+		if (personID < 10) {
+			System.out.println("00000" + personID);
+			return "00000" + personID;
+		} else if (personID < 100 && personID >= 10) {
+			return "0000" + personID;
+		} else if (personID < 1000 && personID >= 100) {
+			return "000" + personID;
+		} else if (personID < 10000 && personID >= 1000) {
+			return "00" + personID;
+		} else if (personID < 100000 && personID >= 10000) {
+			return "0" + personID;
 		}
-		else if(personID < 100 && personID >= 10) {
-			return "0000"+personID;
-		}
-		else if(personID < 1000 && personID >= 100) {
-			return "000"+personID;
-		}
-		else if(personID < 10000 && personID >= 1000) {
-			return "00"+personID;
-		}
-		else if(personID < 100000 && personID >= 10000) {
-			return "0"+personID;
-		}
-		
+
 		return "Person Object Required";
 	}
 }

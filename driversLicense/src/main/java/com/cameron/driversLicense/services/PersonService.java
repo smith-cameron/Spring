@@ -12,23 +12,28 @@ import com.cameron.driversLicense.repositories.PersonRepo;
 public class PersonService {
 	@Autowired
 	private PersonRepo pRepo;
-	
-	public List<Person> getAll(){
+
+	public List<Person> getAll() {
 		return this.pRepo.findAll();
 	}
+
 	public Person createEntry(Person newEntry) {
 		return this.pRepo.save(newEntry);
 	}
+
 	public Person createEntry(String firstName, String lastName) {
 		Person newEntry = new Person(firstName, lastName);
 		return this.pRepo.save(newEntry);
 	}
+
 	public Person getById(Long id) {
 		return this.pRepo.findById(id).orElse(null);
 	}
+
 	public Person updateEntry(Person toUpdate) {
 		return this.pRepo.save(toUpdate);
 	}
+
 	public void deleteById(Long id) {
 		this.pRepo.deleteById(id);
 	}
