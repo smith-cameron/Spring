@@ -1,7 +1,5 @@
 package com.cameronsmith.eventsbeltreviewer.services;
 
-
-
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
