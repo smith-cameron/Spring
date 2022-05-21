@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TheController {
 	@RequestMapping("/")
-	public String indexRoute(){
-		
+	public String indexRoute() {
+
 		return "";
 	}
 }
