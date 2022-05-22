@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/user")
 public class MainController {
 	@GetMapping(value = "/")
 	public String index(Model viewModel) {
