@@ -19,18 +19,18 @@ import com.cameronsmith.authentication.validators.UserValidator;
 
 @Controller
 public class MainController {
-	@Autowired 
+	@Autowired
 	private UserService uService;
 	@Autowired
 	private UserValidator validator;
-	
-	
+
 	@GetMapping("/")
-	public String index(@ModelAttribute("user")User user) {
+	public String index(@ModelAttribute("user") User user) {
 		return "index.jsp";
 	}
+
 	@PostMapping("/register")
-	public String registerUser(@Valid @ModelAttribute("user")User user, BindingResult result, HttpSession session) {
+	public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
 		validator.validate(user, result);
 		if (result.hasErrors()) {
 			return "index.jsp";
@@ -39,9 +39,11 @@ public class MainController {
 		session.setAttribute("user_id", newUser.getId());
 		return "redirect:/dashboard";
 	}
+
 	@PostMapping("/login")
-	public String loginUser(@RequestParam("loginEmail")String email, @RequestParam("loginPassword")String password, RedirectAttributes redirectAttrs, HttpSession session) {
-		if(!this.uService.authenticateUser(email, password)) {
+	public String loginUser(@RequestParam("loginEmail") String email, @RequestParam("loginPassword") String password,
+			RedirectAttributes redirectAttrs, HttpSession session) {
+		if (!this.uService.authenticateUser(email, password)) {
 			redirectAttrs.addFlashAttribute("loginError", "Invalid Credantials");
 			return "redirect:/";
 		}
@@ -50,21 +52,22 @@ public class MainController {
 		session.setAttribute("user_id", user.getId());
 		return "redirect:/dashboard";
 	}
+
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, Model viewModel) {
-		Long userId = (Long)session.getAttribute("user_id");
-		if(userId == null) {
+		Long userId = (Long) session.getAttribute("user_id");
+		if (userId == null) {
 			return "redirect:/";
 		}
 		User currentUser = this.uService.getById(userId);
 		viewModel.addAttribute("user", currentUser);
 		return "welcome.jsp";
 	}
+
 	@GetMapping("/logOutUser")
 	public String logOut(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
-}
 
+}
