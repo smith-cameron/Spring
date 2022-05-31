@@ -38,8 +38,8 @@
 							<td class="tData"><a class="link"
 								href="/expenses/edit/${expense.id}">EDIT</a>
 								<form action="/expenses/delete/${expense.id}" method="post">
-									<input type="hidden" name="_method" value="delete"> <input
-										class="button" type="submit" value="DELETE">
+									<input type="hidden" name="_method" value="delete"/>
+										<input class="button" type="submit" value="DELETE"/>
 								</form></td>
 						</tr>
 					</c:forEach>
