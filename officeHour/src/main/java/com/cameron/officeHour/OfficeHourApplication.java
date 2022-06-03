@@ -1,13 +1,13 @@
-package com.cameron.test;
+package com.cameron.officeHour;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestApplication {
+public class OfficeHourApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestApplication.class, args);
+		SpringApplication.run(OfficeHourApplication.class, args);
 	}
 
 }

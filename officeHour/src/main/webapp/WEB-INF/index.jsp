@@ -11,8 +11,9 @@
 </head>
 <body>
 	<div id=wrapper>
+	
 		<h1 id="head">Hello World</h1>
-		<p class="subHead">Houston... we have problem.</p>
+		<p class="subHead">Houston... we have liftoff.</p>
 	</div>
 </body>
 </html>
