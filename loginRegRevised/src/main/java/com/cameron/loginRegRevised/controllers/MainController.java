@@ -28,13 +28,14 @@ public class MainController {
 	@PostMapping("/register")
 	public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model,
 			HttpSession session) {
+		this.uService.validate(newUser, result);
 		if (result.hasErrors()) {
 			model.addAttribute("newLogin", new LoginUser());
 			return "index.jsp";
 		}
 //        System.out.println(newUser.getPassword());
 //        System.out.println(user.getId());
-		User user = this.uService.register(newUser, result);
+		User user = this.uService.register(newUser);
 		session.setAttribute("uId", user.getId());
 		return "redirect:/home";
 	}
