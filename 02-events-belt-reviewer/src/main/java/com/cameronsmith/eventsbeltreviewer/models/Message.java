@@ -48,8 +48,8 @@ public class Message {
     private Event event;
 	
 	public Message() {
-		
 	}
+	
 	public Message(String messageContent, User user, Event event) {
 		this.messageContent = messageContent;
 		this.user = user;
